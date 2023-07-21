@@ -1,0 +1,24 @@
+package config
+
+import (
+	"github.com/kelseyhightower/envconfig"
+	"github.com/rs/zerolog/log"
+)
+
+type Env struct {
+	DBUrl string `envconfig:"DB_URL" default:""`
+}
+
+func NewEnv() (*Env, error) {
+	var config Env
+
+	err := envconfig.Process("server", &config)
+	if err != nil {
+		log.Error().Err(err).Msg("error when processing environment")
+		return nil, err
+	}
+
+	log.Info().Msg("processing environment success")
+
+	return &config, nil
+}

@@ -41,8 +41,8 @@ type GetListProjectData struct {
 	ProjectStack          string `json:"projectStack"`
 	ProjectPlatform       string `json:"projectPlatform"`
 	ProjectObjective      string `json:"projectObjective"`
-	IsHaveDesign          bool   `json:"isHaveDesign"`
-	BudgetRange           int    `json:"budgetRange"`
+	IsHaveDesign          string `json:"isHaveDesign"`
+	BudgetRange           string `json:"budgetRange"`
 	TimelineRange         string `json:"timelineRange"`
 }
 

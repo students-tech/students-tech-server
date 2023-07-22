@@ -14,13 +14,9 @@ type Env struct {
 func NewEnv() (*Env, error) {
 	var config Env
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Error().Err(err).Msg("error loading .env fil")
-		return nil, err
-	}
+	_ = godotenv.Load()
 
-	err = envconfig.Process("server", &config)
+  err := envconfig.Process("server", &config)
 	if err != nil {
 		log.Error().Err(err).Msg("error when processing environment")
 		return nil, err

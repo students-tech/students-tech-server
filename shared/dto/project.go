@@ -26,3 +26,16 @@ type CreateProjectRequest struct {
 	BudgetRange           int    `json:"budget_range"`
 	TimelineRange         string `json:"timeline_range"`
 }
+
+type CompleteRequirementMessage struct {
+	Role    string `json:"role"`
+	Content string `json:"content"`
+}
+
+type CompleteRequirementRequest struct {
+	Messages []CompleteRequirementMessage `json:"messages"`
+}
+
+type CompleteRequirementResponse struct {
+	Message CompleteRequirementMessage `json:"message"`
+}

@@ -17,18 +17,18 @@ type Controller struct {
 
 func (c *Controller) Routes(app *fiber.App) {
 	projectGroup := app.Group("/api/v1/project")
-	projectGroup.Post("/", c.sendEmail)
-	projectGroup.Post("/send-email", c.sendEmail)
+	projectGroup.Post("/", c.createProject)
+	projectGroup.Post("/completion", c.completionRequirements)
 }
 
 func (c *Controller) createProject(ctx *fiber.Ctx) error {
 	log.Debug().Msg("start create project")
 
-	var request dto.SendEmailRequest
+	var request dto.CreateProjectRequest
 	if err := ctx.BodyParser(&request); err != nil {
 		return common.DoCommonErrorResponse(ctx, err)
 	}
-	err := c.Interfaces.ProjectService.SendEmail(request)
+	err := c.Interfaces.ProjectService.CreateProject(request)
 	if err != nil {
 		return common.DoCommonErrorResponse(ctx, err)
 	}
@@ -36,19 +36,19 @@ func (c *Controller) createProject(ctx *fiber.Ctx) error {
 	return common.DoCommonSuccessResponse(ctx, nil)
 }
 
-func (c *Controller) sendEmail(ctx *fiber.Ctx) error {
-	log.Debug().Msg("start send email")
+func (c *Controller) completionRequirements(ctx *fiber.Ctx) error {
+	log.Debug().Msg("start completion requirement")
 
-	var request dto.SendEmailRequest
+	var request dto.CompleteRequirementRequest
 	if err := ctx.BodyParser(&request); err != nil {
 		return common.DoCommonErrorResponse(ctx, err)
 	}
-	err := c.Interfaces.ProjectService.SendEmail(request)
+	resp, err := c.Interfaces.ProjectService.CompleteRequirement(request)
 	if err != nil {
 		return common.DoCommonErrorResponse(ctx, err)
 	}
 
-	return common.DoCommonSuccessResponse(ctx, nil)
+	return common.DoCommonSuccessResponse(ctx, resp)
 }
 
 func NewController(shared shared.Holder, interfaces interfaces.Holder) Controller {

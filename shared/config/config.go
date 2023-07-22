@@ -12,6 +12,8 @@ type Env struct {
 	HOST           string `envconfig:"HOST" default:"localhost:8080"`
 	GCPProjectId   string `envconfig:"GCP_PROJECT_ID" default:""`
 	GCPPubSubTopic string `envconfig:"GCP_PUB_SUB_TOPIC" default:""`
+	ChatGPTHost    string `envconfig:"CHAT_GPT_HOST" default:""`
+	ChatGPTAPIKey  string `envconfig:"CHAT_GPT_API_KEY" default:""`
 }
 
 func NewEnv() (*Env, error) {

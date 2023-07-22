@@ -7,9 +7,11 @@ import (
 )
 
 type Env struct {
-	DBUrl string `envconfig:"DB_URL" default:""`
-	PORT  string `envconfig:"PORT" default:"8080"`
-  HOST string `envconfig:"HOST" default:"localhost:8080"`
+	DBUrl          string `envconfig:"DB_URL" default:""`
+	PORT           string `envconfig:"PORT" default:"8080"`
+	HOST           string `envconfig:"HOST" default:"localhost:8080"`
+	GCPProjectId   string `envconfig:"GCP_PROJECT_ID" default:""`
+	GCPPubSubTopic string `envconfig:"GCP_PUB_SUB_TOPIC" default:""`
 }
 
 func NewEnv() (*Env, error) {

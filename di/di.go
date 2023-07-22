@@ -25,7 +25,7 @@ func init() {
 		log.Error().Err(err).Msg("error registering interfaces module")
 	}
 
-  if err := application.Register(Container); err != nil {
-    log.Error().Err(err).Msg("error registering application module")
-  }
+	if err := application.Register(Container); err != nil {
+		log.Error().Err(err).Msg("error registering application module")
+	}
 }

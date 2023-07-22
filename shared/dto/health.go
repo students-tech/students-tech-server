@@ -5,7 +5,7 @@ const (
 )
 
 type (
-  //Status Status
+	//Status Status
 	Status struct {
 		Name   string      `json:"name"`
 		Status string      `json:"status"`

@@ -24,9 +24,9 @@ func NewHttp() *fiber.App {
 
 	app.Use(cors.New(cors.ConfigDefault))
 
-  app.Get("/metrics", monitor.New(monitor.Config{Title: "students tech server metrics"}))
+	app.Get("/metrics", monitor.New(monitor.Config{Title: "students tech server metrics"}))
 
-  app.Get("/swagger/*", swagger.HandlerDefault)
+	app.Get("/swagger/*", swagger.HandlerDefault)
 
 	log.Info().Msg("http fiber started")
 

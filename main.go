@@ -21,7 +21,7 @@ func main() {
 	err := container.Invoke(func(http *fiber.App, env *config.Env, holder infrastructure.Holder) error {
 		infrastructure.Routes(http, holder)
 
-    docs.SwaggerInfo.Host = env.HOST
+		docs.SwaggerInfo.Host = env.HOST
 
 		err := http.Listen(":" + env.PORT)
 		if err != nil {

@@ -10,13 +10,13 @@ import (
 )
 
 type Controller struct {
-  Shared shared.Holder
-  Interfaces interfaces.Holder
+	Shared     shared.Holder
+	Interfaces interfaces.Holder
 }
 
 func (c *Controller) Routes(app *fiber.App) {
-  students := app.Group("/students")
-  students.Post("/", c.register)
+	students := app.Group("/students")
+	students.Post("/", c.register)
 }
 
 // All godoc
@@ -30,27 +30,27 @@ func (c *Controller) Routes(app *fiber.App) {
 // @Failure 200 {array} dto.CreateStudentsResponse
 // @Router /students/ [post]
 func (c *Controller) register(ctx *fiber.Ctx) error {
-  var (
-    req dto.CreateStudentsRequest
-    res dto.CreateStudentsResponse
-  ) 
+	var (
+		req dto.CreateStudentsRequest
+		res dto.CreateStudentsResponse
+	)
 
-  err := common.DoCommonRequest(ctx, &req)
-  if err != nil {
-    return common.DoCommonErrorResponse(ctx, err)
-  }
+	err := common.DoCommonRequest(ctx, &req)
+	if err != nil {
+		return common.DoCommonErrorResponse(ctx, err)
+	}
 
-  res, err = c.Interfaces.StudentsService.RegisterStudents(req)
-  if err != nil {
-    return common.DoCommonErrorResponse(ctx, err)
-  }
+	res, err = c.Interfaces.StudentsService.RegisterStudents(req)
+	if err != nil {
+		return common.DoCommonErrorResponse(ctx, err)
+	}
 
-  return common.DoCommonSuccessResponse(ctx, res)
+	return common.DoCommonSuccessResponse(ctx, res)
 }
 
 func NewController(shared shared.Holder, interfaces interfaces.Holder) Controller {
-  return Controller{
-    Shared: shared,
-    Interfaces: interfaces,
-  }
+	return Controller{
+		Shared:     shared,
+		Interfaces: interfaces,
+	}
 }

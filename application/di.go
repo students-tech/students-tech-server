@@ -8,14 +8,14 @@ import (
 )
 
 type Holder struct {
-  dig.In
-  StudentsService students.Service
+	dig.In
+	StudentsService students.Service
 }
 
 func Register(container *dig.Container) error {
-  if err := container.Provide(students.NewService); err != nil {
-    return errors.Wrap(err, "failed to provide student service")
-  }
+	if err := container.Provide(students.NewService); err != nil {
+		return errors.Wrap(err, "failed to provide student service")
+	}
 
-  return nil
+	return nil
 }

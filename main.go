@@ -15,7 +15,7 @@ func main() {
 	err := container.Invoke(func(http *fiber.App, env *config.Env, holder infrastructure.Holder) error {
 		infrastructure.Routes(http, holder)
 
-    err := http.Listen(":8080")
+		err := http.Listen(":" + env.PORT)
 		if err != nil {
 			return err
 		}

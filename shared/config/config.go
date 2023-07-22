@@ -1,6 +1,7 @@
 package config
 
 import (
+	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/rs/zerolog/log"
 )
@@ -13,7 +14,13 @@ type Env struct {
 func NewEnv() (*Env, error) {
 	var config Env
 
-	err := envconfig.Process("server", &config)
+	err := godotenv.Load()
+	if err != nil {
+		log.Error().Err(err).Msg("error loading .env fil")
+		return nil, err
+	}
+
+	err = envconfig.Process("server", &config)
 	if err != nil {
 		log.Error().Err(err).Msg("error when processing environment")
 		return nil, err

@@ -17,5 +17,7 @@ func NewDatabase(config *config.Env) (*pgxpool.Pool, error) {
 
 	log.Info().Msg("database connected")
 
+	pool.Ping(context.Background())
+
 	return pool, nil
 }

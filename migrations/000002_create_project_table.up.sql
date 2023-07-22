@@ -7,9 +7,9 @@ CREATE TABLE IF NOT EXISTS project(
     platform TEXT NOT NULL,
     tech_stack TEXT NOT NULL,
     project_objective TEXT NOT NULL,
-    is_have_design BOOLEAN NOT NULL,
-    budget_range INT NOT NULL,
-    timeline VARCHAR(255) NOT NULL,
+    is_have_design TEXT NOT NULL,
+    budget_range TEXT NOT NULL,
+    timeline TEXT NOT NULL,
     is_active BOOLEAN NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
 );

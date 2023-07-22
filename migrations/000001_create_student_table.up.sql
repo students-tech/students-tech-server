@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS students(
   id SERIAL PRIMARY KEY,
+  user_id VARCHAR(255) UNIQUE NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
   name VARCHAR(255) NOT NULL,
   residency TEXT NOT NULL,
@@ -12,7 +13,7 @@ CREATE TABLE IF NOT EXISTS students(
   major VARCHAR(255) NOT NULL,
   current_semester SMALLINT NOT NULL,
   relevant_coursework TEXT,
-  hours_availability_per_week SMALLINT NOT NULL,
+  hours_availability_per_week VARCHAR(255) NOT NULL,
   role TEXT NOT NULL,
   university_email VARCHAR(255) NOT NULL,
   ktm_url TEXT,

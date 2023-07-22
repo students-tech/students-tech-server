@@ -3,6 +3,7 @@ package students
 import (
 	"students-tech-server/application"
 	"students-tech-server/shared"
+	"students-tech-server/shared/common"
 	"students-tech-server/shared/dto"
 )
 
@@ -29,6 +30,14 @@ func (v *viewService) RegisterStudents(req dto.CreateStudentsRequest) (dto.Creat
 
 	res = dto.CreateStudentsResponse{
 		Status: "Success",
+	}
+
+	if req.UniversityEmail != "" {
+		go common.PublishEmailTopic(dto.EmailMessage{
+			Type:  dto.USER,
+			Name:  req.Name,
+			Email: req.UniversityEmail,
+		}, v.shared.Env.GCPProjectId, v.shared.Env.GCPPubSubTopic)
 	}
 
 	return res, nil

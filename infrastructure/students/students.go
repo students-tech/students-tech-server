@@ -12,9 +12,13 @@ import (
 type Controller struct {
 	Shared     shared.Holder
 	Interfaces interfaces.Holder
+	Shared     shared.Holder
+	Interfaces interfaces.Holder
 }
 
 func (c *Controller) Routes(app *fiber.App) {
+	students := app.Group("/students")
+	students.Post("/", c.register)
 	students := app.Group("/students")
 	students.Post("/", c.register)
 }
@@ -31,6 +35,10 @@ func (c *Controller) Routes(app *fiber.App) {
 func (c *Controller) register(ctx *fiber.Ctx) error {
 	var (
 		req dto.CreateStudentsRequest
+	)
+	var (
+		req dto.CreateStudentsRequest
+		res dto.CreateStudentsResponse
 	)
 
 	err := common.DoCommonRequest(ctx, &req)

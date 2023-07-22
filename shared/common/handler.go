@@ -1,7 +1,12 @@
 package common
 
 import (
+	"context"
+	"students-tech-server/shared/dto"
+
+	"cloud.google.com/go/pubsub"
 	"github.com/go-playground/validator/v10"
+	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
@@ -44,4 +49,28 @@ func DoCommonErrorResponse(ctx *fiber.Ctx, err error) error {
 		Status: "FAILED",
 		Error:  err.Error(),
 	})
+}
+
+func PublishEmailTopic(data dto.EmailMessage, projectId string, topic string) error {
+	client, err := pubsub.NewClient(context.Background(), projectId)
+	if err != nil {
+		log.Error().Err(err).Msg("failed to initiate pub sub client")
+		return err
+	}
+
+	topicPub := client.Topic(topic)
+
+	dataByte, _ := json.Marshal(data)
+
+	res := topicPub.Publish(context.Background(), &pubsub.Message{Data: dataByte})
+
+	msgId, err := res.Get(context.Background())
+	if err != nil {
+		log.Error().Err(err).Msg("failed to retrieve message id")
+		return err
+	}
+
+	log.Debug().Str("id", msgId).Msg("pub sub message id")
+
+	return nil
 }

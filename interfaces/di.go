@@ -9,8 +9,9 @@ import (
 
 type Holder struct {
 	dig.In
-	HealthService  health.ViewService
 	ProjectService project.ViewService
+	HealthService   health.ViewService
+	StudentsService students.ViewService
 }
 
 func Register(container *dig.Container) error {
@@ -19,6 +20,9 @@ func Register(container *dig.Container) error {
 	}
 	if err := container.Provide(project.NewViewService); err != nil {
 		return errors.Wrap(err, "failed to provide project service")
+
+	if err := container.Provide(students.NewViewService); err != nil {
+		return errors.Wrap(err, "failed to provide students service")
 	}
 
 	return nil

@@ -9,6 +9,7 @@ import (
 type (
 	ViewService interface {
 		CreateAssignment(req dto.CreateAssignmentRequest) (dto.CreateAssignmentResponse, error)
+		GetAssignmentDetail(req dto.GetAssignmentRequest) (dto.GetAssignmentQuestionAndAnswerResponse, error)
 	}
 
 	viewService struct {
@@ -16,6 +17,19 @@ type (
 		application application.Holder
 	}
 )
+
+func (v *viewService) GetAssignmentDetail(req dto.GetAssignmentRequest) (dto.GetAssignmentQuestionAndAnswerResponse, error) {
+	var (
+		res dto.GetAssignmentQuestionAndAnswerResponse
+	)
+
+	res, err := v.application.AssignmentService.GetAssignmentQuestionAndAnswer(req.AssignmentID)
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
 
 func (v *viewService) CreateAssignment(req dto.CreateAssignmentRequest) (dto.CreateAssignmentResponse, error) {
 	var (

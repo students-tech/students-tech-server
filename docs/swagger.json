@@ -1,0 +1,149 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API definition for Students Tech Server",
+        "title": "Students-Tech Server",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/health": {
+            "get": {
+                "description": "Put all mandatory parameter",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Healthcheck"
+                ],
+                "summary": "Check system status",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.Status"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/students/": {
+            "post": {
+                "description": "Put all mandatory parameter",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Students"
+                ],
+                "summary": "Register new students",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.CreateStudentsRequest"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dto.CreateStudentsRequest": {
+            "type": "object",
+            "required": [
+                "currentSemester",
+                "email",
+                "hoursAvailability",
+                "ktmUrl",
+                "major",
+                "name",
+                "phoneNumber",
+                "residency",
+                "resumeUrl",
+                "role",
+                "universityEmail",
+                "universityName"
+            ],
+            "properties": {
+                "currentSemester": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "githubUsername": {
+                    "type": "string"
+                },
+                "gitlabUsername": {
+                    "type": "string"
+                },
+                "hoursAvailability": {
+                    "type": "string"
+                },
+                "ktmUrl": {
+                    "type": "string"
+                },
+                "linkedInUrl": {
+                    "type": "string"
+                },
+                "major": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                },
+                "projectCount": {
+                    "type": "integer"
+                },
+                "relevantCoursework": {
+                    "type": "string"
+                },
+                "residency": {
+                    "type": "string"
+                },
+                "resumeUrl": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "universityEmail": {
+                    "type": "string"
+                },
+                "universityName": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.Status": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

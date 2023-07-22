@@ -18,6 +18,15 @@ func (c *Controller) Routes(app *fiber.App) {
 	app.Get("/health", c.healthcheck)
 }
 
+// All godoc
+// @Tags Healthcheck
+// @Summary Check system status
+// @Description Put all mandatory parameter
+// @Accept  json
+// @Produce  json
+// @Success 200 {array} dto.Status
+// @Failure 200 {array} dto.Status
+// @Router /health [get]
 func (c *Controller) healthcheck(ctx *fiber.Ctx) error {
 	log.Debug().Msg("checking server status")
 

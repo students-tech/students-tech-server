@@ -1,0 +1,102 @@
+basePath: /
+definitions:
+  dto.CreateStudentsRequest:
+    properties:
+      currentSemester:
+        type: integer
+      email:
+        type: string
+      githubUsername:
+        type: string
+      gitlabUsername:
+        type: string
+      hoursAvailability:
+        type: string
+      ktmUrl:
+        type: string
+      linkedInUrl:
+        type: string
+      major:
+        type: string
+      name:
+        type: string
+      phoneNumber:
+        type: string
+      projectCount:
+        type: integer
+      relevantCoursework:
+        type: string
+      residency:
+        type: string
+      resumeUrl:
+        type: string
+      role:
+        type: string
+      universityEmail:
+        type: string
+      universityName:
+        type: string
+    required:
+    - currentSemester
+    - email
+    - hoursAvailability
+    - ktmUrl
+    - major
+    - name
+    - phoneNumber
+    - residency
+    - resumeUrl
+    - role
+    - universityEmail
+    - universityName
+    type: object
+  dto.Status:
+    properties:
+      data: {}
+      name:
+        type: string
+      status:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API definition for Students Tech Server
+  title: Students-Tech Server
+  version: "1.0"
+paths:
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: Put all mandatory parameter
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.Status'
+            type: array
+      summary: Check system status
+      tags:
+      - Healthcheck
+  /students/:
+    post:
+      consumes:
+      - application/json
+      description: Put all mandatory parameter
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.CreateStudentsRequest'
+            type: array
+      summary: Register new students
+      tags:
+      - Students
+swagger: "2.0"

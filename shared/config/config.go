@@ -9,6 +9,7 @@ import (
 type Env struct {
 	DBUrl string `envconfig:"DB_URL" default:""`
 	PORT  string `envconfig:"PORT" default:"8080"`
+  HOST string `envconfig:"HOST" default:"localhost:8080"`
 }
 
 func NewEnv() (*Env, error) {

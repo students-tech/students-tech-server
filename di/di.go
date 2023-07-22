@@ -1,6 +1,7 @@
 package di
 
 import (
+	"students-tech-server/application"
 	"students-tech-server/infrastructure"
 	"students-tech-server/interfaces"
 	"students-tech-server/shared"
@@ -23,4 +24,8 @@ func init() {
 	if err := interfaces.Register(Container); err != nil {
 		log.Error().Err(err).Msg("error registering interfaces module")
 	}
+
+  if err := application.Register(Container); err != nil {
+    log.Error().Err(err).Msg("error registering application module")
+  }
 }

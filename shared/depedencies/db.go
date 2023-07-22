@@ -2,10 +2,12 @@ package depedencies
 
 import (
 	"context"
-	"students-tech-server/shared/config"
-
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/rs/zerolog/log"
+	"students-tech-server/shared/config"
 )
 
 func NewDatabase(config *config.Env) (*pgxpool.Pool, error) {
@@ -17,7 +19,16 @@ func NewDatabase(config *config.Env) (*pgxpool.Pool, error) {
 
 	log.Info().Msg("database connected")
 
-	pool.Ping(context.Background())
+	// MigrateDatabase(config.DBUrl)
 
 	return pool, nil
+}
+
+func MigrateDatabase(url string) {
+	m, err := migrate.New("file://migrations", url)
+	if err != nil {
+		log.Warn().Err(err).Msg("error migrating database")
+	}
+	m.Up()
+	log.Info().Msg("success migrating database")
 }

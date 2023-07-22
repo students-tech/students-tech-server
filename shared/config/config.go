@@ -9,6 +9,7 @@ import (
 type Env struct {
 	DBUrl string `envconfig:"DB_URL" default:""`
 	PORT  string `envconfig:"PORT" default:"8080"`
+	HOST  string `envconfig:"HOST" default:"localhost:8080"`
 }
 
 func NewEnv() (*Env, error) {
@@ -16,7 +17,7 @@ func NewEnv() (*Env, error) {
 
 	_ = godotenv.Load()
 
-  err := envconfig.Process("server", &config)
+	err := envconfig.Process("server", &config)
 	if err != nil {
 		log.Error().Err(err).Msg("error when processing environment")
 		return nil, err

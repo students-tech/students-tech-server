@@ -1,12 +1,12 @@
-package health
+package students
 
 import (
 	"students-tech-server/interfaces"
 	"students-tech-server/shared"
 	"students-tech-server/shared/common"
+	"students-tech-server/shared/dto"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/rs/zerolog/log"
 )
 
 type Controller struct {
@@ -15,27 +15,30 @@ type Controller struct {
 }
 
 func (c *Controller) Routes(app *fiber.App) {
-	app.Get("/health", c.healthcheck)
+	students := app.Group("/students")
+	students.Post("/", c.register)
 }
 
 // All godoc
-// @Tags Healthcheck
-// @Summary Check system status
+// @Tags Students
+// @Summary Register new students
 // @Description Put all mandatory parameter
 // @Accept  json
 // @Produce  json
-// @Success 200 {array} dto.Status
-// @Failure 200 {array} dto.Status
-// @Router /health [get]
-func (c *Controller) healthcheck(ctx *fiber.Ctx) error {
-	log.Debug().Msg("checking server status")
+// @Success 200 {array} dto.CreateStudentsRequest
+// @Failure 200 {array} dto.CreateStudentsRequest
+// @Router /students/ [post]
+func (c *Controller) register(ctx *fiber.Ctx) error {
+	var (
+		req dto.CreateStudentsRequest
+	)
 
-	res, err := c.Interfaces.HealthService.SystemHealth()
+	err := common.DoCommonRequest(ctx, &req)
 	if err != nil {
 		return common.DoCommonErrorResponse(ctx, err)
 	}
 
-	return common.DoCommonSuccessResponse(ctx, res)
+	return common.DoCommonSuccessResponse(ctx, req)
 }
 
 func NewController(shared shared.Holder, interfaces interfaces.Holder) Controller {

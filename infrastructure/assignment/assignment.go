@@ -20,13 +20,13 @@ func (c *Controller) Routes(app *fiber.App) {
 }
 
 func (c *Controller) createAssignment(ctx *fiber.Ctx) error {
-	log.Debug().Msg("start create project")
+	log.Debug().Msg("start create assignment")
 
-	var request dto.CreateProjectRequest
+	var request dto.CreateAssignmentRequest
 	if err := ctx.BodyParser(&request); err != nil {
 		return common.DoCommonErrorResponse(ctx, err)
 	}
-	res, err := c.Interfaces.ProjectService.CreateProject(request)
+	res, err := c.Interfaces.AssignmentService.CreateAssignment(request)
 	if err != nil {
 		return common.DoCommonErrorResponse(ctx, err)
 	}

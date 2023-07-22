@@ -1,17 +1,18 @@
 package infrastructure
 
 import (
-	"students-tech-server/infrastructure/health"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
 	"go.uber.org/dig"
+	"students-tech-server/infrastructure/health"
+	"students-tech-server/infrastructure/project"
 )
 
 type Holder struct {
 	dig.In
-	Health health.Controller
+	Health  health.Controller
+	Project project.Controller
 }
 
 func Register(container *dig.Container) error {
@@ -19,10 +20,15 @@ func Register(container *dig.Container) error {
 		return errors.Wrap(err, "failed to provide health controller")
 	}
 
+	if err := container.Provide(project.NewController); err != nil {
+		return errors.Wrap(err, "failed to provide project controller")
+	}
+
 	return nil
 }
 
 func Routes(app *fiber.App, controller Holder) {
 	controller.Health.Routes(app)
+	controller.Project.Routes(app)
 	log.Debug().Msg("load route complete")
 }

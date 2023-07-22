@@ -32,11 +32,6 @@ func (s *service) InsertStudents(data dto.CreateStudentsRequest) error {
 		Values(data.Email, data.Name, data.Residency, data.PhoneNumber, data.LinkedInUrl, data.GithubUsername, data.GitlabUsername, data.ProjectCount, data.UniversityName, data.Major, data.CurrentSemester, data.RelevantCoursework, data.HoursAvailability, data.Role, data.UniversityEmail, data.KTMUrl, data.ResumeUrl).
 		PlaceholderFormat(sq.Dollar).
 		ToSql()
-	query, args, _ := sq.Insert("students").
-		Columns("email", "name", "residency", "phone_number", "linkedin_url", "github_username", "gitlab_username", "project_count", "university_name", "major", "current_semester", "relevant_coursework", "hours_availability_per_week", "role", "university_email", "ktm_url", "resume_url").
-		Values(data.Email, data.Name, data.Residency, data.PhoneNumber, data.LinkedInUrl, data.GithubUsername, data.GitlabUsername, data.ProjectCount, data.UniveristyName, data.Major, data.CurrentSemester, data.RelevantCousework, data.HoursAvailibility, data.Role, data.UniversityEmail, data.KTMUrl, data.ResumeUrl).
-		PlaceholderFormat(sq.Dollar).
-		ToSql()
 
 	log.Debug().Str("query", query).Any("args", args).Send()
 

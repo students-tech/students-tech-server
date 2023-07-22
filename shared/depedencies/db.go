@@ -19,7 +19,7 @@ func NewDatabase(config *config.Env) (*pgxpool.Pool, error) {
 
 	log.Info().Msg("database connected")
 
-	MigrateDatabase(config.DBUrl)
+	// MigrateDatabase(config.DBUrl)
 
 	return pool, nil
 }

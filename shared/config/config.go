@@ -16,7 +16,7 @@ func NewEnv() (*Env, error) {
 
 	_ = godotenv.Load()
 
-  err := envconfig.Process("server", &config)
+	err := envconfig.Process("server", &config)
 	if err != nil {
 		log.Error().Err(err).Msg("error when processing environment")
 		return nil, err

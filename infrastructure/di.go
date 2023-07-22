@@ -3,6 +3,7 @@ package infrastructure
 import (
 	"students-tech-server/infrastructure/health"
 	"students-tech-server/infrastructure/project"
+	"students-tech-server/infrastructure/students"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/pkg/errors"

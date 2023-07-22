@@ -17,13 +17,6 @@ type (
 	service struct {
 		shared shared.Holder
 	}
-	Service interface {
-		InsertStudents(data dto.CreateStudentsRequest) error
-	}
-
-	service struct {
-		shared shared.Holder
-	}
 )
 
 func (s *service) InsertStudents(data dto.CreateStudentsRequest) error {

@@ -12,13 +12,9 @@ import (
 type Controller struct {
 	Shared     shared.Holder
 	Interfaces interfaces.Holder
-	Shared     shared.Holder
-	Interfaces interfaces.Holder
 }
 
 func (c *Controller) Routes(app *fiber.App) {
-	students := app.Group("/students")
-	students.Post("/", c.register)
 	students := app.Group("/students")
 	students.Post("/", c.register)
 }
@@ -27,15 +23,13 @@ func (c *Controller) Routes(app *fiber.App) {
 // @Tags Students
 // @Summary Register new students
 // @Description Put all mandatory parameter
+// @Param CreateStudentsRequest body dto.CreateStudentsRequest true "CreateStudentsRequest"
 // @Accept  json
 // @Produce  json
-// @Success 200 {array} dto.CreateStudentsRequest
-// @Failure 200 {array} dto.CreateStudentsRequest
+// @Success 200 {array} dto.CreateStudentsResponse
+// @Failure 200 {array} dto.CreateStudentsResponse
 // @Router /students/ [post]
 func (c *Controller) register(ctx *fiber.Ctx) error {
-	var (
-		req dto.CreateStudentsRequest
-	)
 	var (
 		req dto.CreateStudentsRequest
 		res dto.CreateStudentsResponse
@@ -46,7 +40,12 @@ func (c *Controller) register(ctx *fiber.Ctx) error {
 		return common.DoCommonErrorResponse(ctx, err)
 	}
 
-	return common.DoCommonSuccessResponse(ctx, req)
+	res, err = c.Interfaces.StudentsService.RegisterStudents(req)
+	if err != nil {
+		return common.DoCommonErrorResponse(ctx, err)
+	}
+
+	return common.DoCommonSuccessResponse(ctx, res)
 }
 
 func NewController(shared shared.Holder, interfaces interfaces.Holder) Controller {

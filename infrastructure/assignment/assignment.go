@@ -17,6 +17,7 @@ type Controller struct {
 func (c *Controller) Routes(app *fiber.App) {
 	projectGroup := app.Group("/assignment")
 	projectGroup.Post("/", c.createAssignment)
+	projectGroup.Post("/detail", c.getAssignment)
 }
 
 func (c *Controller) createAssignment(ctx *fiber.Ctx) error {
@@ -27,6 +28,21 @@ func (c *Controller) createAssignment(ctx *fiber.Ctx) error {
 		return common.DoCommonErrorResponse(ctx, err)
 	}
 	res, err := c.Interfaces.AssignmentService.CreateAssignment(request)
+	if err != nil {
+		return common.DoCommonErrorResponse(ctx, err)
+	}
+
+	return common.DoCommonSuccessResponse(ctx, res)
+}
+
+func (c *Controller) getAssignment(ctx *fiber.Ctx) error {
+	log.Debug().Msg("start get assignment")
+
+	var request dto.GetAssignmentRequest
+	if err := ctx.BodyParser(&request); err != nil {
+		return common.DoCommonErrorResponse(ctx, err)
+	}
+	res, err := c.Interfaces.AssignmentService.GetAssignmentDetail(request)
 	if err != nil {
 		return common.DoCommonErrorResponse(ctx, err)
 	}

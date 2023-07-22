@@ -46,15 +46,6 @@ func (s *service) GetProjectByID(ID uint32) (dto.GetListProjectData, error) {
 	return data, nil
 }
 
-// import sq "github.com/Masterminds/squirrel"
-//
-// users := sq.Select("*").From("users").Join("emails USING (email_id)")
-//
-// active := users.Where(sq.Eq{"deleted_at": nil})
-//
-// sql, args, err := active.ToSql()
-//
-// sql == "SELECT * FROM users JOIN emails USING (email_id) WHERE deleted_at IS NULL"
 func (s *service) GetProjects() (dto.GetListProjectResponse, error) {
 	var res dto.GetListProjectResponse
 	psql := sq.StatementBuilder.PlaceholderFormat(sq.Question)

@@ -55,13 +55,24 @@ const docTemplate = `{
                     "Students"
                 ],
                 "summary": "Register new students",
+                "parameters": [
+                    {
+                        "description": "CreateStudentsRequest",
+                        "name": "CreateStudentsRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.CreateStudentsRequest"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/dto.CreateStudentsRequest"
+                                "$ref": "#/definitions/dto.CreateStudentsResponse"
                             }
                         }
                     }
@@ -100,7 +111,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "hoursAvailability": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "ktmUrl": {
                     "type": "string"
@@ -118,7 +129,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "projectCount": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "relevantCoursework": {
                     "type": "string"
@@ -136,6 +147,14 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "universityName": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.CreateStudentsResponse": {
+            "type": "object",
+            "properties": {
+                "status": {
                     "type": "string"
                 }
             }

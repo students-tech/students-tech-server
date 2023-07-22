@@ -16,8 +16,10 @@ type Controller struct {
 }
 
 func (c *Controller) Routes(app *fiber.App) {
-	projectGroup := app.Group("/api/v1/project")
+	projectGroup := app.Group("/project")
 	projectGroup.Post("/", c.createProject)
+	projectGroup.Post("/list", c.listProject)
+	projectGroup.Post("/detail", c.getProjectByID)
 	projectGroup.Post("/completion", c.completionRequirements)
 }
 
@@ -28,14 +30,39 @@ func (c *Controller) createProject(ctx *fiber.Ctx) error {
 	if err := ctx.BodyParser(&request); err != nil {
 		return common.DoCommonErrorResponse(ctx, err)
 	}
-	err := c.Interfaces.ProjectService.CreateProject(request)
+	res, err := c.Interfaces.ProjectService.CreateProject(request)
 	if err != nil {
 		return common.DoCommonErrorResponse(ctx, err)
 	}
 
-	return common.DoCommonSuccessResponse(ctx, nil)
+	return common.DoCommonSuccessResponse(ctx, res)
 }
 
+func (c *Controller) listProject(ctx *fiber.Ctx) error {
+	log.Debug().Msg("start get list project")
+
+	res, err := c.Interfaces.ProjectService.ListProject()
+	if err != nil {
+		return common.DoCommonErrorResponse(ctx, err)
+	}
+
+	return common.DoCommonSuccessResponse(ctx, res)
+}
+
+func (c *Controller) getProjectByID(ctx *fiber.Ctx) error {
+	log.Debug().Msg("start get detail project")
+
+	var request dto.GetProjectDetail
+	if err := ctx.BodyParser(&request); err != nil {
+		return common.DoCommonErrorResponse(ctx, err)
+	}
+	res, err := c.Interfaces.ProjectService.GetDetailProject(request.ProjectID)
+	if err != nil {
+		return common.DoCommonErrorResponse(ctx, err)
+	}
+
+	return common.DoCommonSuccessResponse(ctx, res)
+}
 func (c *Controller) completionRequirements(ctx *fiber.Ctx) error {
 	log.Debug().Msg("start completion requirement")
 

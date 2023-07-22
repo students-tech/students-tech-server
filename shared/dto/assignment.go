@@ -31,5 +31,9 @@ type Answer struct {
 }
 
 type QuestionQueryJoin struct {
-	Question string `json:"question"`
+	QuestionID     uint32
+	QuestionText   string
+	QuestionNumber uint32
+	Answer         string
+	IsTrue         bool
 }
